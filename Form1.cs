@@ -1,7 +1,4 @@
-﻿//FAILED READS
-//Acting 1, People Skills 1, Computers 1, Gardening 1, Ikebana 3
-
-using System;
+﻿using System;
 using System.IO;
 using System.Drawing;
 using System.Windows.Forms;
@@ -98,11 +95,11 @@ namespace SoD2_Reroll
 
                 sw.WriteLine(formattedText);
 
-                if (survivor == 3 && formattedText.ToUpper().Contains(active[survivor - 1]))
+                if (survivor == 3 && ComputeStringDistance(active[survivor - 1], formattedText.ToUpper()) <= (formattedText.Length - active[survivor - 1].Length) + 1)
                 {
                     Stop();
                 }
-                else if (formattedText.ToUpper().Contains(active[survivor - 1]))
+                else if (ComputeStringDistance(active[survivor - 1], formattedText.ToUpper()) <= (formattedText.Length - active[survivor - 1].Length) + 1)
                 {
                     survivor += 1;
                     sim.Keyboard.KeyPress(VirtualKeyCode.RIGHT);
@@ -126,6 +123,36 @@ namespace SoD2_Reroll
             }
         }
 
+        public static int ComputeStringDistance(string input1, string input2)
+        {
+            var bounds = new { Height = input1.Length + 1, Width = input2.Length + 1 };
+            int[,] matrix = new int[bounds.Height, bounds.Width];
+            for (int height = 0; height < bounds.Height; height++)
+            {
+                matrix[height, 0] = height;
+            }
+            for (int width = 0; width < bounds.Width; width++)
+            {
+                matrix[0, width] = width;
+            }
+            for (int height = 1; height < bounds.Height; height++)
+            {
+                for (int width = 1; width < bounds.Width; width++)
+                {
+                    int cost = (input1[height - 1] == input2[width - 1]) ? 0 : 1;
+                    int insertion = matrix[height, width - 1] + 1;
+                    int deletion = matrix[height - 1, width] + 1;
+                    int substitution = matrix[height - 1, width - 1] + cost;
+                    int distance = Math.Min(insertion, Math.Min(deletion, substitution));
+                    if (height > 1 && width > 1 && input1[height - 1] == input2[width - 2] && input1[height - 2] == input2[width - 1])
+                    {
+                        distance = Math.Min(distance, matrix[height - 2, width - 2] + cost);
+                    }
+                    matrix[height, width] = distance;
+                }
+            }
+            return matrix[bounds.Height - 1, bounds.Width - 1];
+        }
 
         private void Stop()
         {
@@ -133,6 +160,13 @@ namespace SoD2_Reroll
             rerollTimer.Interval = wait;
             reroll = false;
             rerollTimer.Enabled = false;
+            ToggleButtons(true);
+        }
+
+        private void ToggleButtons(bool toggle)
+        {
+            btnStop.BeginInvoke((Action)delegate() { btnStop.Enabled = !toggle; });
+            btnStart.BeginInvoke((Action)delegate() { btnStart.Enabled = toggle; });
         }
 
         private void cbSurvivor1_SelectedIndexChanged(object sender, EventArgs e) { active[0] = Regex.Replace(cbSurvivor1.GetItemText(cbSurvivor1.SelectedItem).ToUpper(), @"\s+", ""); }
@@ -141,6 +175,7 @@ namespace SoD2_Reroll
 
         private void btnStart_Click(object sender, EventArgs e)
         {
+            ToggleButtons(false);
             reroll = true;
             rerollTimer.Enabled = true;
         }
