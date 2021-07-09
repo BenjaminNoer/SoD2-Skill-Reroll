@@ -15,7 +15,7 @@ namespace SoD2_Reroll
         private System.Timers.Timer rerollTimer;
         private readonly InputSimulator sim = new InputSimulator();
         private string path;
-        private bool reroll = false;
+        private bool reroll = false, firstIteration = false;
         private short wait = 10000, interval = 100, survivor = 1;
         private Size resolution = new Size(1920, 1080);
         StreamWriter sw;
@@ -60,6 +60,14 @@ namespace SoD2_Reroll
             rerollTimer.Enabled = false;
             rerollTimer.Interval = interval;
 
+            if (firstIteration)
+            {
+                sim.Keyboard.KeyPress(VirtualKeyCode.UP);
+                sim.Keyboard.KeyPress(VirtualKeyCode.LEFT);
+                sim.Keyboard.KeyPress(VirtualKeyCode.LEFT);
+                firstIteration = false;
+            }
+
             int left = 0;
             int top = (int)Math.Round(resolution.Height / 1.55);
 
@@ -79,7 +87,7 @@ namespace SoD2_Reroll
             Bitmap bmp = new Bitmap(375, 35);
             Graphics g = Graphics.FromImage(bmp);
             g.CopyFromScreen(left, top, 0, 0, new Size(375, 35), CopyPixelOperation.SourceCopy);
-            bmp.Save(@Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\SoD2Screenshot.jpg");
+            bmp.Save(@path);
 
             Reroll(@path);
             bmp.Dispose();
@@ -176,6 +184,7 @@ namespace SoD2_Reroll
         private void btnStart_Click(object sender, EventArgs e)
         {
             ToggleButtons(false);
+            firstIteration = true;
             reroll = true;
             rerollTimer.Enabled = true;
         }
