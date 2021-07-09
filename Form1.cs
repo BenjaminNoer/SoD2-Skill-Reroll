@@ -1,6 +1,9 @@
-﻿using System;
+﻿//FAILED READS
+//Acting 1, People Skills 1, Computers 1, Gardening 1, Ikebana 3
+
+using System;
+using System.IO;
 using System.Drawing;
-using System.Drawing.Imaging;
 using System.Windows.Forms;
 using Patagames.Ocr;
 using System.Timers;
@@ -18,6 +21,7 @@ namespace SoD2_Reroll
         private bool reroll = false;
         private short wait = 10000, interval = 100, survivor = 1;
         private Size resolution = new Size(1920, 1080);
+        StreamWriter sw;
 
         private readonly static string[] skills = 
         { 
@@ -36,6 +40,9 @@ namespace SoD2_Reroll
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            File.WriteAllText(Directory.GetCurrentDirectory() + "\\output.txt", String.Empty);
+            sw = new StreamWriter(Directory.GetCurrentDirectory() + "\\output.txt");
+
             cbSurvivor1.Items.AddRange(skills);
             cbSurvivor2.Items.AddRange(skills);
             cbSurvivor3.Items.AddRange(skills);
@@ -57,7 +64,7 @@ namespace SoD2_Reroll
             rerollTimer.Interval = interval;
 
             int left = 0;
-            int top = (int)Math.Round(1440 / 1.55);
+            int top = (int)Math.Round(resolution.Height / 1.55);
 
             switch (survivor)
             {
@@ -88,6 +95,8 @@ namespace SoD2_Reroll
                 objOcr.Init(Patagames.Ocr.Enums.Languages.English);
                 string plainText = objOcr.GetTextFromImage(@BO3img);
                 string formattedText = Regex.Replace(plainText, @"\s+", "").ToUpper();
+
+                sw.WriteLine(formattedText);
 
                 if (survivor == 3 && formattedText.ToUpper().Contains(active[survivor - 1]))
                 {
