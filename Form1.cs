@@ -14,7 +14,6 @@ namespace SoD2_Reroll
     {
         private System.Timers.Timer rerollTimer;
         private readonly InputSimulator sim = new InputSimulator();
-        private string path;
         private bool reroll = false, firstIteration = false;
         private short wait = 10000, survivor = 1;
         private readonly short interval = 100;
@@ -51,8 +50,6 @@ namespace SoD2_Reroll
             rerollTimer = new System.Timers.Timer(wait);
             rerollTimer.Elapsed += RerollTimer_Elapsed;
 
-            path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\SoD2Screenshot.jpg";
-
             Stop();
         }
 
@@ -88,18 +85,18 @@ namespace SoD2_Reroll
             Bitmap bmp = new Bitmap(375, 35);
             Graphics g = Graphics.FromImage(bmp);
             g.CopyFromScreen(left, top, 0, 0, new Size(375, 35), CopyPixelOperation.SourceCopy);
-            bmp.Save(@path);
+            bmp.Save(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\SoD2Screenshot.jpg");
 
-            Reroll(@path);
+            Reroll(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\SoD2Screenshot.jpg");
             bmp.Dispose();
         }
 
-        private void Reroll(string BO3img)
+        private void Reroll(string SoD2img)
         {
             using (var objOcr = OcrApi.Create())
             {
                 objOcr.Init(Patagames.Ocr.Enums.Languages.English);
-                string plainText = objOcr.GetTextFromImage(@BO3img);
+                string plainText = objOcr.GetTextFromImage(SoD2img);
                 string formattedText = Regex.Replace(plainText, @"\s+", "").ToUpper();
 
                 sw.WriteLine(formattedText);
