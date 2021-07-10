@@ -16,7 +16,7 @@ namespace SoD2_Reroll
         private readonly InputSimulator sim = new InputSimulator();
         private bool reroll = false, firstIteration = false;
         private short wait = 10000, survivor = 1;
-        private readonly short interval = 100;
+        private readonly short interval = 50;
         private Size resolution = new Size(1920, 1080);
         StreamWriter sw;
 
@@ -82,32 +82,24 @@ namespace SoD2_Reroll
                     break;
             }
 
-            Bitmap bmp = new Bitmap(375, 35);
-            Graphics g = Graphics.FromImage(bmp);
+            Bitmap img = new Bitmap(375, 35);
+            Graphics g = Graphics.FromImage(img);
             g.CopyFromScreen(left, top, 0, 0, new Size(375, 35), CopyPixelOperation.SourceCopy);
-            //bmp.Save(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\SoD2Screenshot.jpg");
-            bmp.Save(Directory.GetCurrentDirectory() + "\\SoD2Screenshot.jpg");
+            //bmp.Save(Directory.GetCurrentDirectory() + "\\SoD2Screenshot.jpg");
 
-            //Reroll(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\SoD2Screenshot.jpg");
-            Reroll(Directory.GetCurrentDirectory() + "\\SoD2Screenshot.jpg");
-            bmp.Dispose();
-        }
-
-        private void Reroll(string SoD2img)
-        {
             using (var objOcr = OcrApi.Create())
             {
                 objOcr.Init(Patagames.Ocr.Enums.Languages.English);
-                string plainText = objOcr.GetTextFromImage(SoD2img);
+                string plainText = objOcr.GetTextFromImage(img);
                 string formattedText = Regex.Replace(plainText, @"\s+", "").ToUpper();
 
                 sw.WriteLine(formattedText);
 
-                if (survivor == 3 && ComputeStringDistance(active[survivor - 1], formattedText.ToUpper()) <= (formattedText.Length - active[survivor - 1].Length) + 1)
+                if (survivor == 3 && (formattedText.Contains(active[survivor - 1]) || ComputeStringDistance(active[survivor - 1], formattedText) <= (formattedText.Length - active[survivor - 1].Length) + 1))
                 {
                     Stop();
                 }
-                else if (ComputeStringDistance(active[survivor - 1], formattedText.ToUpper()) <= (formattedText.Length - active[survivor - 1].Length) + 1)
+                else if (formattedText.Contains(active[survivor - 1]) || ComputeStringDistance(active[survivor - 1], formattedText) <= (formattedText.Length - active[survivor - 1].Length) + 1)
                 {
                     survivor += 1;
                     sim.Keyboard.KeyPress(VirtualKeyCode.RIGHT);
@@ -119,6 +111,8 @@ namespace SoD2_Reroll
                     EnableTimer();
                 }
             }
+
+            img.Dispose();
         }
 
         private void EnableTimer()
@@ -177,9 +171,20 @@ namespace SoD2_Reroll
             btnStart.BeginInvoke((Action)delegate() { btnStart.Enabled = toggle; });
         }
 
-        private void cbSurvivor1_SelectedIndexChanged(object sender, EventArgs e) { active[0] = Regex.Replace(cbSurvivor1.GetItemText(cbSurvivor1.SelectedItem).ToUpper(), @"\s+", ""); }
-        private void cbSurvivor2_SelectedIndexChanged(object sender, EventArgs e) { active[1] = Regex.Replace(cbSurvivor2.GetItemText(cbSurvivor2.SelectedItem).ToUpper(), @"\s+", ""); }
-        private void cbSurvivor3_SelectedIndexChanged(object sender, EventArgs e) { active[2] = Regex.Replace(cbSurvivor3.GetItemText(cbSurvivor3.SelectedItem).ToUpper(), @"\s+", ""); }
+        private void cbSurvivor1_SelectedIndexChanged(object sender, EventArgs e) 
+        { 
+            active[0] = Regex.Replace(cbSurvivor1.GetItemText(cbSurvivor1.SelectedItem).ToUpper(), @"\s+", ""); 
+        }
+
+        private void cbSurvivor2_SelectedIndexChanged(object sender, EventArgs e) 
+        { 
+            active[1] = Regex.Replace(cbSurvivor2.GetItemText(cbSurvivor2.SelectedItem).ToUpper(), @"\s+", ""); 
+        }
+
+        private void cbSurvivor3_SelectedIndexChanged(object sender, EventArgs e) 
+        { 
+            active[2] = Regex.Replace(cbSurvivor3.GetItemText(cbSurvivor3.SelectedItem).ToUpper(), @"\s+", ""); 
+        }
 
         private void btnStart_Click(object sender, EventArgs e)
         {
