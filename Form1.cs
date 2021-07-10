@@ -85,9 +85,11 @@ namespace SoD2_Reroll
             Bitmap bmp = new Bitmap(375, 35);
             Graphics g = Graphics.FromImage(bmp);
             g.CopyFromScreen(left, top, 0, 0, new Size(375, 35), CopyPixelOperation.SourceCopy);
-            bmp.Save(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\SoD2Screenshot.jpg");
+            //bmp.Save(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\SoD2Screenshot.jpg");
+            bmp.Save(Directory.GetCurrentDirectory() + "\\SoD2Screenshot.jpg");
 
-            Reroll(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\SoD2Screenshot.jpg");
+            //Reroll(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\SoD2Screenshot.jpg");
+            Reroll(Directory.GetCurrentDirectory() + "\\SoD2Screenshot.jpg");
             bmp.Dispose();
         }
 
