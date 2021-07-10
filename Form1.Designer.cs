@@ -68,7 +68,7 @@ namespace SoD2_Reroll
             // 
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label2.Location = new System.Drawing.Point(12, 95);
+            this.label2.Location = new System.Drawing.Point(12, 101);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(119, 29);
             this.label2.TabIndex = 2;
@@ -78,7 +78,7 @@ namespace SoD2_Reroll
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(12, 52);
+            this.label3.Location = new System.Drawing.Point(12, 55);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(119, 29);
             this.label3.TabIndex = 3;
@@ -88,7 +88,7 @@ namespace SoD2_Reroll
             // 
             this.cbSurvivor2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbSurvivor2.FormattingEnabled = true;
-            this.cbSurvivor2.Location = new System.Drawing.Point(137, 49);
+            this.cbSurvivor2.Location = new System.Drawing.Point(137, 52);
             this.cbSurvivor2.Name = "cbSurvivor2";
             this.cbSurvivor2.Size = new System.Drawing.Size(284, 37);
             this.cbSurvivor2.TabIndex = 4;
@@ -98,7 +98,7 @@ namespace SoD2_Reroll
             // 
             this.cbSurvivor3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbSurvivor3.FormattingEnabled = true;
-            this.cbSurvivor3.Location = new System.Drawing.Point(137, 92);
+            this.cbSurvivor3.Location = new System.Drawing.Point(137, 98);
             this.cbSurvivor3.Name = "cbSurvivor3";
             this.cbSurvivor3.Size = new System.Drawing.Size(284, 37);
             this.cbSurvivor3.TabIndex = 5;
@@ -107,7 +107,7 @@ namespace SoD2_Reroll
             // nudWait
             // 
             this.nudWait.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nudWait.Location = new System.Drawing.Point(356, 135);
+            this.nudWait.Location = new System.Drawing.Point(356, 144);
             this.nudWait.Maximum = new decimal(new int[] {
             30,
             0,
@@ -132,7 +132,7 @@ namespace SoD2_Reroll
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label4.Location = new System.Drawing.Point(12, 137);
+            this.label4.Location = new System.Drawing.Point(12, 146);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(277, 29);
             this.label4.TabIndex = 7;
@@ -142,7 +142,7 @@ namespace SoD2_Reroll
             // 
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label5.Location = new System.Drawing.Point(12, 179);
+            this.label5.Location = new System.Drawing.Point(12, 191);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(128, 29);
             this.label5.TabIndex = 8;
@@ -152,7 +152,7 @@ namespace SoD2_Reroll
             // 
             this.cbResolution.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbResolution.FormattingEnabled = true;
-            this.cbResolution.Location = new System.Drawing.Point(146, 176);
+            this.cbResolution.Location = new System.Drawing.Point(146, 188);
             this.cbResolution.Name = "cbResolution";
             this.cbResolution.Size = new System.Drawing.Size(275, 37);
             this.cbResolution.TabIndex = 9;
@@ -161,7 +161,7 @@ namespace SoD2_Reroll
             // btnStart
             // 
             this.btnStart.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnStart.Location = new System.Drawing.Point(222, 219);
+            this.btnStart.Location = new System.Drawing.Point(222, 238);
             this.btnStart.Name = "btnStart";
             this.btnStart.Size = new System.Drawing.Size(199, 65);
             this.btnStart.TabIndex = 10;
@@ -172,7 +172,7 @@ namespace SoD2_Reroll
             // btnStop
             // 
             this.btnStop.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnStop.Location = new System.Drawing.Point(17, 219);
+            this.btnStop.Location = new System.Drawing.Point(17, 238);
             this.btnStop.Name = "btnStop";
             this.btnStop.Size = new System.Drawing.Size(199, 65);
             this.btnStop.TabIndex = 11;
@@ -184,7 +184,7 @@ namespace SoD2_Reroll
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(438, 300);
+            this.ClientSize = new System.Drawing.Size(438, 318);
             this.Controls.Add(this.btnStop);
             this.Controls.Add(this.btnStart);
             this.Controls.Add(this.cbResolution);
@@ -197,7 +197,10 @@ namespace SoD2_Reroll
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.cbSurvivor1);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
             this.Name = "Form1";
+            this.ShowIcon = false;
             this.Text = "SoD2 Reroll";
             this.Load += new System.EventHandler(this.Form1_Load);
             ((System.ComponentModel.ISupportInitialize)(this.nudWait)).EndInit();
