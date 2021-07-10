@@ -16,7 +16,8 @@ namespace SoD2_Reroll
         private readonly InputSimulator sim = new InputSimulator();
         private string path;
         private bool reroll = false, firstIteration = false;
-        private short wait = 10000, interval = 100, survivor = 1;
+        private short wait = 10000, survivor = 1;
+        private readonly short interval = 100;
         private Size resolution = new Size(1920, 1080);
         StreamWriter sw;
 
