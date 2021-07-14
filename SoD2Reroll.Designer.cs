@@ -1,7 +1,7 @@
 ﻿
 namespace SoD2_Reroll
 {
-    partial class Form1
+    partial class SoD2Reroll
     {
         /// <summary>
         /// Required designer variable.
@@ -180,7 +180,7 @@ namespace SoD2_Reroll
             this.btnStop.UseVisualStyleBackColor = true;
             this.btnStop.Click += new System.EventHandler(this.btnStop_Click);
             // 
-            // Form1
+            // SoD2Reroll
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -199,10 +199,10 @@ namespace SoD2_Reroll
             this.Controls.Add(this.cbSurvivor1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
-            this.Name = "Form1";
+            this.Name = "SoD2Reroll";
             this.ShowIcon = false;
             this.Text = "SoD2 Reroll";
-            this.Load += new System.EventHandler(this.Form1_Load);
+            this.Load += new System.EventHandler(this.SoD2Reroll_Load);
             ((System.ComponentModel.ISupportInitialize)(this.nudWait)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
