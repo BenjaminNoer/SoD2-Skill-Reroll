@@ -1,16 +1,16 @@
 ﻿using System;
 using System.IO;
-using System.Drawing;
-using System.Windows.Forms;
+using WindowsInput;
 using Patagames.Ocr;
 using System.Timers;
+using System.Drawing;
 using WindowsInput.Native;
-using WindowsInput;
+using System.Windows.Forms;
 using System.Text.RegularExpressions;
 
 namespace SoD2_Reroll
 {
-    public partial class Form1 : Form
+    public partial class SoD2Reroll : Form
     {
         private System.Timers.Timer rerollTimer;
         private readonly InputSimulator sim = new InputSimulator();
@@ -20,23 +20,24 @@ namespace SoD2_Reroll
         private Size resolution = new Size(1920, 1080);
         StreamWriter sw;
 
+        //Array of all skills obtainable by random characters, excludes red talon and heartland exlusive skills
         private readonly static string[] skills = 
         { 
-            "Acting", "Administration", "Animal Facts", "Bartending", "Business", "Combat Medicine", "Comedy", "Demolitions", 
-            "Design", "Driving", "Excuses", "Farting Around", "Firearms Maintenance", "Fishing", "Foraging", "Fortifications", 
-            "Geek Trivia", "Gut Packing", "Hacking", "Hairdressing", "Hygiene", "Ikebana", "Infrastructure", "Law", "Lichenology", 
-            "Literature", "Logistics", "Making Coffee", "Mobile Operations", "Movie Trivia", "Music", "Painting", "People Skills", 
-            "Pinball", "Poker Face", "Police Procedure", "Political Science", "Recycling", "Scrum Certification", "Self-Promotion", 
-            "Sewing", "Sexting", "Shopping", "Shopping", "Sleep Psychology", "Sports Trivia", "Soundproofing", "Tattoos", 
+            "Acting", "Animal Facts", "Bartending", "Business", "Comedy", "Design", "Driving", "Excuses", "Farting Around", "Fishing", 
+            "Geek Trivia", "Hairdressing", "Hygiene", "Ikebana", "Law", "Lichenology", "Literature", "Making Coffee", "Movie Trivia", 
+            "Music", "Painting", "People Skills", "Pinball", "Poker Face", "Political Science", "Recycling", "Scrum Certification", 
+            "Self-Promotion", "Sewing", "Sexting", "Shopping", "Sleep Psychology", "Sports Trivia", "Soundproofing", "Tattoos", 
             "TV Trivia", "Chemistry", "Computers", "Cooking", "Craftsmanship", "Gardening", "Mechanics", "Medicine", "Utilities" 
         };
 
+        //Array that holds the currently selected skills in combo boxes
         private string[] active = { "", "", "" };
 
-        public Form1() { InitializeComponent(); }
+        public SoD2Reroll() { InitializeComponent(); }
 
-        private void Form1_Load(object sender, EventArgs e)
+        private void SoD2Reroll_Load(object sender, EventArgs e)
         {
+            //Create output text file or delete contents if it already exists
             File.WriteAllText(Directory.GetCurrentDirectory() + "\\output.txt", String.Empty);
             sw = new StreamWriter(Directory.GetCurrentDirectory() + "\\output.txt");
 
@@ -55,20 +56,25 @@ namespace SoD2_Reroll
 
         private void RerollTimer_Elapsed(object sender, ElapsedEventArgs e)
         {
+            //Disable the timer to stop it from running again before an iteration is done
             rerollTimer.Enabled = false;
             rerollTimer.Interval = interval;
 
             if (firstIteration)
             {
+                //Move cursor to the first button
                 sim.Keyboard.KeyPress(VirtualKeyCode.UP);
                 sim.Keyboard.KeyPress(VirtualKeyCode.LEFT);
                 sim.Keyboard.KeyPress(VirtualKeyCode.LEFT);
+
                 firstIteration = false;
             }
 
+            //define variables for screenshot position
             int left = 0;
             int top = (int)Math.Round(resolution.Height / 1.55);
 
+            //Sets left and top vaiables for each survivor based on resoltuion
             switch (survivor)
             {
                 case 1:
@@ -82,11 +88,13 @@ namespace SoD2_Reroll
                     break;
             }
 
+            //Create new image to store screenshot
             Bitmap img = new Bitmap(375, 35);
             Graphics g = Graphics.FromImage(img);
             g.CopyFromScreen(left, top, 0, 0, new Size(375, 35), CopyPixelOperation.SourceCopy);
-            //bmp.Save(Directory.GetCurrentDirectory() + "\\SoD2Screenshot.jpg");
+            //img.Save(Directory.GetCurrentDirectory() + "\\SoD2Screenshot.jpg");
 
+            //Use the screenreader to determine what text is in the screenshot
             using (var objOcr = OcrApi.Create())
             {
                 objOcr.Init(Patagames.Ocr.Enums.Languages.English);
@@ -97,16 +105,19 @@ namespace SoD2_Reroll
 
                 if (survivor == 3 && (formattedText.Contains(active[survivor - 1]) || ComputeStringDistance(active[survivor - 1], formattedText) <= (formattedText.Length - active[survivor - 1].Length) + 1))
                 {
+                    //Stop the program when the last desired skill is present
                     Stop();
                 }
                 else if (formattedText.Contains(active[survivor - 1]) || ComputeStringDistance(active[survivor - 1], formattedText) <= (formattedText.Length - active[survivor - 1].Length) + 1)
                 {
+                    //Change to the next survivor when a desired skill is present
                     survivor += 1;
                     sim.Keyboard.KeyPress(VirtualKeyCode.RIGHT);
                     EnableTimer();
                 }
                 else
                 {
+                    //Reroll if a desired skill is not present
                     sim.Keyboard.KeyPress(VirtualKeyCode.RETURN);
                     EnableTimer();
                 }
@@ -117,7 +128,8 @@ namespace SoD2_Reroll
 
         private void EnableTimer()
         {
-            System.Threading.Thread.Sleep(250);
+            //Timer is enabled to continue iterating
+            System.Threading.Thread.Sleep(50);
 
             if (reroll)
             {
@@ -125,6 +137,7 @@ namespace SoD2_Reroll
             }
         }
 
+        //Get the distance between two strings of different lengths
         public static int ComputeStringDistance(string input1, string input2)
         {
             var bounds = new { Height = input1.Length + 1, Width = input2.Length + 1 };
@@ -158,6 +171,7 @@ namespace SoD2_Reroll
 
         private void Stop()
         {
+            //Reset and disable the timer
             survivor = 1;
             rerollTimer.Interval = wait;
             reroll = false;
@@ -167,6 +181,7 @@ namespace SoD2_Reroll
 
         private void ToggleButtons(bool toggle)
         {
+            //Enable and disable buttons
             btnStop.BeginInvoke((Action)delegate() { btnStop.Enabled = !toggle; });
             btnStart.BeginInvoke((Action)delegate() { btnStart.Enabled = toggle; });
         }
