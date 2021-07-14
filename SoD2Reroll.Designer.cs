@@ -46,8 +46,11 @@ namespace SoD2_Reroll
             // 
             // cbSurvivor1
             // 
+            this.cbSurvivor1.DropDownHeight = 200;
+            this.cbSurvivor1.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbSurvivor1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbSurvivor1.FormattingEnabled = true;
+            this.cbSurvivor1.IntegralHeight = false;
             this.cbSurvivor1.Location = new System.Drawing.Point(137, 6);
             this.cbSurvivor1.Name = "cbSurvivor1";
             this.cbSurvivor1.Size = new System.Drawing.Size(284, 37);
@@ -68,7 +71,7 @@ namespace SoD2_Reroll
             // 
             this.lblSurvivor3.AutoSize = true;
             this.lblSurvivor3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblSurvivor3.Location = new System.Drawing.Point(12, 101);
+            this.lblSurvivor3.Location = new System.Drawing.Point(12, 105);
             this.lblSurvivor3.Name = "lblSurvivor3";
             this.lblSurvivor3.Size = new System.Drawing.Size(119, 29);
             this.lblSurvivor3.TabIndex = 2;
@@ -78,7 +81,7 @@ namespace SoD2_Reroll
             // 
             this.lblSurvivor2.AutoSize = true;
             this.lblSurvivor2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblSurvivor2.Location = new System.Drawing.Point(12, 55);
+            this.lblSurvivor2.Location = new System.Drawing.Point(12, 57);
             this.lblSurvivor2.Name = "lblSurvivor2";
             this.lblSurvivor2.Size = new System.Drawing.Size(119, 29);
             this.lblSurvivor2.TabIndex = 3;
@@ -86,9 +89,12 @@ namespace SoD2_Reroll
             // 
             // cbSurvivor2
             // 
+            this.cbSurvivor2.DropDownHeight = 200;
+            this.cbSurvivor2.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbSurvivor2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbSurvivor2.FormattingEnabled = true;
-            this.cbSurvivor2.Location = new System.Drawing.Point(137, 52);
+            this.cbSurvivor2.IntegralHeight = false;
+            this.cbSurvivor2.Location = new System.Drawing.Point(137, 54);
             this.cbSurvivor2.Name = "cbSurvivor2";
             this.cbSurvivor2.Size = new System.Drawing.Size(284, 37);
             this.cbSurvivor2.TabIndex = 4;
@@ -96,9 +102,12 @@ namespace SoD2_Reroll
             // 
             // cbSurvivor3
             // 
+            this.cbSurvivor3.DropDownHeight = 200;
+            this.cbSurvivor3.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbSurvivor3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbSurvivor3.FormattingEnabled = true;
-            this.cbSurvivor3.Location = new System.Drawing.Point(137, 98);
+            this.cbSurvivor3.IntegralHeight = false;
+            this.cbSurvivor3.Location = new System.Drawing.Point(137, 102);
             this.cbSurvivor3.Name = "cbSurvivor3";
             this.cbSurvivor3.Size = new System.Drawing.Size(284, 37);
             this.cbSurvivor3.TabIndex = 5;
@@ -107,7 +116,7 @@ namespace SoD2_Reroll
             // nudWait
             // 
             this.nudWait.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nudWait.Location = new System.Drawing.Point(356, 144);
+            this.nudWait.Location = new System.Drawing.Point(356, 150);
             this.nudWait.Maximum = new decimal(new int[] {
             30,
             0,
@@ -132,7 +141,7 @@ namespace SoD2_Reroll
             // 
             this.lblWait.AutoSize = true;
             this.lblWait.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblWait.Location = new System.Drawing.Point(12, 146);
+            this.lblWait.Location = new System.Drawing.Point(12, 154);
             this.lblWait.Name = "lblWait";
             this.lblWait.Size = new System.Drawing.Size(277, 29);
             this.lblWait.TabIndex = 7;
@@ -142,7 +151,7 @@ namespace SoD2_Reroll
             // 
             this.lblResolution.AutoSize = true;
             this.lblResolution.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblResolution.Location = new System.Drawing.Point(12, 191);
+            this.lblResolution.Location = new System.Drawing.Point(12, 199);
             this.lblResolution.Name = "lblResolution";
             this.lblResolution.Size = new System.Drawing.Size(128, 29);
             this.lblResolution.TabIndex = 8;
@@ -150,9 +159,12 @@ namespace SoD2_Reroll
             // 
             // cbResolution
             // 
+            this.cbResolution.DropDownHeight = 200;
+            this.cbResolution.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.cbResolution.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbResolution.FormattingEnabled = true;
-            this.cbResolution.Location = new System.Drawing.Point(146, 188);
+            this.cbResolution.IntegralHeight = false;
+            this.cbResolution.Location = new System.Drawing.Point(146, 196);
             this.cbResolution.Name = "cbResolution";
             this.cbResolution.Size = new System.Drawing.Size(275, 37);
             this.cbResolution.TabIndex = 9;
@@ -161,7 +173,7 @@ namespace SoD2_Reroll
             // btnStart
             // 
             this.btnStart.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnStart.Location = new System.Drawing.Point(222, 238);
+            this.btnStart.Location = new System.Drawing.Point(222, 246);
             this.btnStart.Name = "btnStart";
             this.btnStart.Size = new System.Drawing.Size(199, 65);
             this.btnStart.TabIndex = 10;
@@ -172,7 +184,7 @@ namespace SoD2_Reroll
             // btnStop
             // 
             this.btnStop.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnStop.Location = new System.Drawing.Point(17, 238);
+            this.btnStop.Location = new System.Drawing.Point(17, 246);
             this.btnStop.Name = "btnStop";
             this.btnStop.Size = new System.Drawing.Size(199, 65);
             this.btnStop.TabIndex = 11;
