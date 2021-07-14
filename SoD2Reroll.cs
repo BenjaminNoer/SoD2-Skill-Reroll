@@ -103,6 +103,7 @@ namespace SoD2_Reroll
 
                 sw.WriteLine(formattedText);
 
+                //Check if the OCR output contains the skill searched for with error tolerance of 1 error
                 if (survivor == 3 && (formattedText.Contains(active[survivor - 1]) || ComputeStringDistance(active[survivor - 1], formattedText) <= (formattedText.Length - active[survivor - 1].Length) + 1))
                 {
                     //Stop the program when the last desired skill is present
@@ -128,10 +129,15 @@ namespace SoD2_Reroll
 
         private void EnableTimer()
         {
-            //Timer is enabled to continue iterating
+            //Program waits 50ms before iterating to prevent misreading by the OCR
             System.Threading.Thread.Sleep(50);
 
-            if (reroll)
+            //Timer is enabled to continue iterating if needed, program stops when CONTROL is pressed
+            if (ModifierKeys.HasFlag(Keys.Control))
+            {
+                Stop();
+            }
+            else if (reroll)
             {
                 rerollTimer.Enabled = true;
             }
