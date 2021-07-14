@@ -46,8 +46,10 @@ namespace SoD2_Reroll
             // 
             // cbSurvivor1
             // 
+            this.cbSurvivor1.DropDownHeight = 200;
             this.cbSurvivor1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbSurvivor1.FormattingEnabled = true;
+            this.cbSurvivor1.IntegralHeight = false;
             this.cbSurvivor1.Location = new System.Drawing.Point(137, 6);
             this.cbSurvivor1.Name = "cbSurvivor1";
             this.cbSurvivor1.Size = new System.Drawing.Size(284, 37);
@@ -86,8 +88,10 @@ namespace SoD2_Reroll
             // 
             // cbSurvivor2
             // 
+            this.cbSurvivor2.DropDownHeight = 200;
             this.cbSurvivor2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbSurvivor2.FormattingEnabled = true;
+            this.cbSurvivor2.IntegralHeight = false;
             this.cbSurvivor2.Location = new System.Drawing.Point(137, 52);
             this.cbSurvivor2.Name = "cbSurvivor2";
             this.cbSurvivor2.Size = new System.Drawing.Size(284, 37);
@@ -96,8 +100,10 @@ namespace SoD2_Reroll
             // 
             // cbSurvivor3
             // 
+            this.cbSurvivor3.DropDownHeight = 200;
             this.cbSurvivor3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbSurvivor3.FormattingEnabled = true;
+            this.cbSurvivor3.IntegralHeight = false;
             this.cbSurvivor3.Location = new System.Drawing.Point(137, 98);
             this.cbSurvivor3.Name = "cbSurvivor3";
             this.cbSurvivor3.Size = new System.Drawing.Size(284, 37);
@@ -150,8 +156,10 @@ namespace SoD2_Reroll
             // 
             // cbResolution
             // 
+            this.cbResolution.DropDownHeight = 200;
             this.cbResolution.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cbResolution.FormattingEnabled = true;
+            this.cbResolution.IntegralHeight = false;
             this.cbResolution.Location = new System.Drawing.Point(146, 188);
             this.cbResolution.Name = "cbResolution";
             this.cbResolution.Size = new System.Drawing.Size(275, 37);
