@@ -6,6 +6,7 @@ This project uses the Tesseract library (https://tesseract.patagames.com/) and I
 This program takes screenshots of the game window where survivors' skills appear and uses a screen reader to determine when the desired skill is present. The program automatically gives virtual keybaord inputs (arrow keys and enter) to press the UI buttons.
 
 Before you start:
+
 This tool does not speed up the process very much but it does automate it. In my testing it takes on average 7 minutes to get a singlee rare skill like lichenology, so in the worst case the progrram will take on average 21 minutes to finish when searching for 3 rare skills.
 
 Instructions:
