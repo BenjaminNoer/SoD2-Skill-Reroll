@@ -8,7 +8,7 @@ This program takes screenshots of the game window where survivors' skills appear
 **Before you start:**
 This tool does not speed up the process very much but it does automate it. In my testing it takes on average 7 minutes to get a singlee rare skill like lichenology, so in the worst case the progrram will take on average 21 minutes to finish when searching for 3 rare skills.
 
-**Instructions: **
+**Instructions:**
 To run the program, download the .zip file from the latest release (https://github.com/BenjoKazooie/SoD2-Skill-Reroll/releases) and extract the files. Make sure they are all in the same folder and run "SoD2 Reroll.exe".
 Pick any skills you want to search for in the dropdon boxes or leave any blank to not search for any skills for that survivor. 
 Hold the control button at any time to stop the program when it is searching otherwise it will keep giving virtual inputs.
