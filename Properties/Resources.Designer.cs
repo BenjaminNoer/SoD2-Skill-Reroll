@@ -8,9 +8,10 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-
-namespace SoD2_Reroll.Properties
-{
+namespace SoD2_Reroll.Properties {
+    using System;
+    
+    
     /// <summary>
     ///   A strongly-typed resource class, for looking up localized strings, etc.
     /// </summary>
@@ -18,52 +19,132 @@ namespace SoD2_Reroll.Properties
     // class via a tool like ResGen or Visual Studio.
     // To add or remove a member, edit your .ResX file then rerun ResGen
     // with the /str option, or rebuild your VS project.
-    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
+    [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Resources
-    {
-
+    internal class Resources {
+        
         private static global::System.Resources.ResourceManager resourceMan;
-
+        
         private static global::System.Globalization.CultureInfo resourceCulture;
-
+        
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal Resources()
-        {
+        internal Resources() {
         }
-
+        
         /// <summary>
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager
-        {
-            get
-            {
-                if ((resourceMan == null))
-                {
+        internal static global::System.Resources.ResourceManager ResourceManager {
+            get {
+                if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("SoD2_Reroll.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
             }
         }
-
+        
         /// <summary>
         ///   Overrides the current thread's CurrentUICulture property for all
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture
-        {
-            get
-            {
+        internal static global::System.Globalization.CultureInfo Culture {
+            get {
                 return resourceCulture;
             }
-            set
-            {
+            set {
                 resourceCulture = value;
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Acting
+        ///Animal Facts
+        ///Bartending
+        ///Business
+        ///Comedy
+        ///Design
+        ///Driving
+        ///Excuses
+        ///Farting Around
+        ///Fishing
+        ///Geek Trivia
+        ///Hairdressing
+        ///Hygiene
+        ///Ikebana
+        ///Law
+        ///Lichenology
+        ///Literature
+        ///Making Coffee
+        ///Movie Trivia
+        ///Music
+        ///Painting
+        ///People Skills
+        ///Pinball
+        ///Poker Face
+        ///Political Science
+        ///Recycling
+        ///Scrum Certification
+        ///Self-Promotion
+        ///Sewing
+        ///Sexting
+        ///Shopping
+        ///Sleep Psychology
+        ///Sports Trivia
+        ///Soundproofing
+        ///Tattoos
+        ///TV Trivia
+        ///Chemistry
+        ///Computers
+        ///Cooking
+        ///Craftsmanship
+        ///Gardening
+        ///Mechanics
+        ///Medicine
+        ///Utilities.
+        /// </summary>
+        internal static string skills {
+            get {
+                return ResourceManager.GetString("skills", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to A Little Forgetful
+        ///A Little Sadistic
+        ///Absent-Minded
+        ///Accountant
+        ///Action Choreographer
+        ///Action Movie Extra
+        ///Action Videographer
+        ///Active Duty Military
+        ///Admin Assistant
+        ///Adrenaline Junkie
+        ///Advertiser
+        ///Aeronautics Engineer
+        ///Afraid of Everything
+        ///Afraid of Rats
+        ///Agriculture Professor
+        ///Air Traffic Control
+        ///Aircraft Mechanic
+        ///Airsoft Commando
+        ///All Out of Fucks
+        ///Always Cold
+        ///Always Kept Moving
+        ///Always Packed a Lunch
+        ///Always Paid for Dinner
+        ///Always Vigilant
+        ///Always Wanted to Camp
+        ///Amateur Comic
+        ///Amateur Hypnotist
+        /// [rest of string was truncated]&quot;;.
+        /// </summary>
+        internal static string traits {
+            get {
+                return ResourceManager.GetString("traits", resourceCulture);
             }
         }
     }

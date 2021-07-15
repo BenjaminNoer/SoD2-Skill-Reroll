@@ -41,6 +41,7 @@ namespace SoD2_Reroll
             this.cbResolution = new System.Windows.Forms.ComboBox();
             this.btnStart = new System.Windows.Forms.Button();
             this.btnStop = new System.Windows.Forms.Button();
+            this.label1 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.nudWait)).BeginInit();
             this.SuspendLayout();
             // 
@@ -192,11 +193,22 @@ namespace SoD2_Reroll
             this.btnStop.UseVisualStyleBackColor = true;
             this.btnStop.Click += new System.EventHandler(this.btnStop_Click);
             // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Location = new System.Drawing.Point(41, 320);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(352, 20);
+            this.label1.TabIndex = 12;
+            this.label1.Text = "(Hold \'Control\' to stop the program while running)";
+            // 
             // SoD2Reroll
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(438, 318);
+            this.ClientSize = new System.Drawing.Size(438, 349);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.btnStop);
             this.Controls.Add(this.btnStart);
             this.Controls.Add(this.cbResolution);
@@ -235,6 +247,7 @@ namespace SoD2_Reroll
         private System.Windows.Forms.ComboBox cbResolution;
         private System.Windows.Forms.Button btnStart;
         private System.Windows.Forms.Button btnStop;
+        private System.Windows.Forms.Label label1;
     }
 }
 

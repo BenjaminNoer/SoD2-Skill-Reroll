@@ -20,15 +20,8 @@ namespace SoD2_Reroll
         private Size resolution = new Size(1920, 1080);
         StreamWriter sw;
 
-        //Array of all skills obtainable by random characters, excludes red talon and heartland exlusive skills
-        private readonly static string[] skills = 
-        { 
-            "Acting", "Animal Facts", "Bartending", "Business", "Comedy", "Design", "Driving", "Excuses", "Farting Around", "Fishing", 
-            "Geek Trivia", "Hairdressing", "Hygiene", "Ikebana", "Law", "Lichenology", "Literature", "Making Coffee", "Movie Trivia", 
-            "Music", "Painting", "People Skills", "Pinball", "Poker Face", "Political Science", "Recycling", "Scrum Certification", 
-            "Self-Promotion", "Sewing", "Sexting", "Shopping", "Sleep Psychology", "Sports Trivia", "Soundproofing", "Tattoos", 
-            "TV Trivia", "Chemistry", "Computers", "Cooking", "Craftsmanship", "Gardening", "Mechanics", "Medicine", "Utilities" 
-        };
+        //Arrays of all skills and traits obtainable by random characters, excludes red talon and heartland exlusives
+        private string[] skills, traits;
 
         //Array that holds the currently selected skills in combo boxes
         private string[] active = { "", "", "" };
@@ -37,6 +30,9 @@ namespace SoD2_Reroll
 
         private void SoD2Reroll_Load(object sender, EventArgs e)
         {
+            skills = Properties.Resources.skills.Split(new[] { Environment.NewLine }, StringSplitOptions.None);
+            traits = Properties.Resources.traits.Split(new[] { Environment.NewLine }, StringSplitOptions.None);
+
             //Create output text file or delete contents if it already exists
             File.WriteAllText(Directory.GetCurrentDirectory() + "\\output.txt", String.Empty);
             sw = new StreamWriter(Directory.GetCurrentDirectory() + "\\output.txt");
