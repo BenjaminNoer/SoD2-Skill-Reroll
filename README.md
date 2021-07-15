@@ -1,9 +1,12 @@
 # SoD2-Skill-Reroll
 A program that automatically re-rolls survivor skills in State of Decay 2 until the desired skills are present. Uses screenshots and a screen reader to determine what skills are currently shown on screen.
 
+
 This project uses the Tesseract library (https://tesseract.patagames.com/) and Input Simulator (https://archive.codeplex.com/?p=inputsimulator).
 
+
 This program takes screenshots of the game window where survivors' skills appear and uses a screen reader to determine when the desired skill is present. The program automatically gives virtual keybaord inputs (arrow keys and enter) to press the UI buttons.
+
 
 **Before you start:**
 
