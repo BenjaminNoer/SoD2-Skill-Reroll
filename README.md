@@ -7,7 +7,7 @@ This program takes screenshots of the game window where survivors' skills appear
 
 Before you start:
 
-This tool does not speed up the process very much but it does automate it. In my testing it takes on average 7 minutes to get a singlee rare skill like lichenology, so in the worst case the progrram will take on average 21 minutes to finish when searching for 3 rare skills.
+This tool does not speed up the process very much but it does automate it. In my testing it takes on average 7 minutes to get a single rare skill like lichenology, so in the worst case the progrram will take on average 21 minutes to finish when searching for 3 rare skills.
 
 Instructions:
 
