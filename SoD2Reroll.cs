@@ -18,20 +18,20 @@ namespace SoD2_Reroll
         private short wait = 10000, survivor = 1;
         private readonly short interval = 50;
         private Size resolution = new Size(1920, 1080);
+        private static readonly int heightTrait = 125, heightSkill = 35;
         StreamWriter sw;
 
-        //Arrays of all skills and traits obtainable by random characters, excludes red talon and heartland exlusives
-        private string[] skills, traits;
-
-        //Array that holds the currently selected skills in combo boxes
-        private string[] active = { "", "", "" };
+        //Array that holds the currently selected skills and traits in combo boxes
+        private string[] activeSkills = { "", "", "" };
+        private string[,] activeTraits = { { "", "", "" }, { "", "", "" }, { "", "", "" } };
 
         public SoD2Reroll() { InitializeComponent(); }
 
         private void SoD2Reroll_Load(object sender, EventArgs e)
         {
-            skills = Properties.Resources.skills.Split(new[] { Environment.NewLine }, StringSplitOptions.None);
-            traits = Properties.Resources.traits.Split(new[] { Environment.NewLine }, StringSplitOptions.None);
+            //Arrays of all skills and traits obtainable by random characters, excludes red talon and heartland exlusives
+            string[] skills = Properties.Resources.skills.Split(new[] { Environment.NewLine }, StringSplitOptions.None);
+            string[] traits = Properties.Resources.traits.Split(new[] { Environment.NewLine }, StringSplitOptions.None);
 
             //Create output text file or delete contents if it already exists
             File.WriteAllText(Directory.GetCurrentDirectory() + "\\output.txt", String.Empty);
@@ -40,6 +40,16 @@ namespace SoD2_Reroll
             cbSurvivor1.Items.AddRange(skills);
             cbSurvivor2.Items.AddRange(skills);
             cbSurvivor3.Items.AddRange(skills);
+
+            cbS1Trait1.Items.AddRange(traits);
+            cbS1Trait2.Items.AddRange(traits);
+            cbS1Trait3.Items.AddRange(traits);
+            cbS2Trait1.Items.AddRange(traits);
+            cbS2Trait2.Items.AddRange(traits);
+            cbS2Trait3.Items.AddRange(traits);
+            cbS3Trait1.Items.AddRange(traits);
+            cbS3Trait2.Items.AddRange(traits);
+            cbS3Trait3.Items.AddRange(traits);
 
             cbResolution.Items.AddRange(new string[] { "1280x720", "1360x720", "1366x720", "1600x900", "1920x1080", "2560x1440" });
             cbResolution.SelectedIndex = 4;
@@ -67,28 +77,30 @@ namespace SoD2_Reroll
             }
 
             //define variables for screenshot position
-            int left = 0;
-            int top = (int)Math.Round(resolution.Height / 1.55);
+            int leftTrait = 0, leftSkill = 0;
+            //int top = (int)Math.Round(resolution.Height / 1.55);
+            int topTrait = (int)Math.Round(resolution.Height / 3.65), topSkill = (int)Math.Round(resolution.Height / 1.55);
 
             //Sets left and top vaiables for each survivor based on resoltuion
             switch (survivor)
             {
+                //screenshot locations for different suvivors
                 case 1:
-                    left = resolution.Width / 5;
+                    leftTrait = (int)Math.Round(resolution.Width / 5.47);
+                    leftSkill = resolution.Width / 5;
                     break;
                 case 2:
-                    left = (int)Math.Round(resolution.Width / 1.925);
+                    leftTrait = (int)Math.Round(resolution.Width / 1.995);
+                    leftSkill = (int)Math.Round(resolution.Width / 1.925);
                     break;
                 case 3:
-                    left = (int)Math.Round(4.2 * resolution.Width / 5);
+                    leftTrait = (int)Math.Round(4.1 * resolution.Width / 5);
+                    leftSkill = (int)Math.Round(4.2 * resolution.Width / 5);
                     break;
             }
 
-            //Create new image to store screenshot
-            Bitmap img = new Bitmap(375, 35);
-            Graphics g = Graphics.FromImage(img);
-            g.CopyFromScreen(left, top, 0, 0, new Size(375, 35), CopyPixelOperation.SourceCopy);
-            //img.Save(Directory.GetCurrentDirectory() + "\\SoD2Screenshot.jpg");
+            Bitmap img = Screenshot(leftTrait, topTrait, heightTrait);
+            img.Save(Directory.GetCurrentDirectory() + "\\SoD2TraitScreenshot.jpg");
 
             //Use the screenreader to determine what text is in the screenshot
             using (var objOcr = OcrApi.Create())
@@ -99,22 +111,36 @@ namespace SoD2_Reroll
 
                 sw.WriteLine(formattedText);
 
-                //Check if the OCR output contains the skill searched for with error tolerance of 1 error
-                if (survivor == 3 && (formattedText.Contains(active[survivor - 1]) || ComputeStringDistance(active[survivor - 1], formattedText) <= (formattedText.Length - active[survivor - 1].Length) + 1))
+                //reliability issues with 2 or more traits selected
+                if (ComputeStringDistance(activeTraits[survivor - 1, 0], formattedText) <= (formattedText.Length - activeTraits[survivor - 1, 0].Length) + 1 &&
+                    ComputeStringDistance(activeTraits[survivor - 1, 1], formattedText) <= (formattedText.Length - activeTraits[survivor - 1, 1].Length) + 1 &&
+                    ComputeStringDistance(activeTraits[survivor - 1, 2], formattedText) <= (formattedText.Length - activeTraits[survivor - 1, 2].Length) + 1)
                 {
-                    //Stop the program when the last desired skill is present
-                    Stop();
-                }
-                else if (formattedText.Contains(active[survivor - 1]) || ComputeStringDistance(active[survivor - 1], formattedText) <= (formattedText.Length - active[survivor - 1].Length) + 1)
-                {
-                    //Change to the next survivor when a desired skill is present
-                    survivor += 1;
-                    sim.Keyboard.KeyPress(VirtualKeyCode.RIGHT);
-                    EnableTimer();
+                    img = Screenshot(leftSkill, topSkill, heightSkill);
+                    img.Save(Directory.GetCurrentDirectory() + "\\SoD2SkillScreenshot.jpg");
+                    plainText = objOcr.GetTextFromImage(img);
+                    formattedText = Regex.Replace(plainText, @"\s+", "").ToUpper();
+                    if (ComputeStringDistance(activeSkills[survivor - 1], formattedText) <= (formattedText.Length - activeSkills[survivor - 1].Length) + 1)
+                    {
+                        if (survivor == 3)
+                        {
+                            Stop();
+                        }
+                        else
+                        {
+                            survivor++;
+                            sim.Keyboard.KeyPress(VirtualKeyCode.RIGHT);
+                            EnableTimer();
+                        }
+                    }
+                    else
+                    {
+                        sim.Keyboard.KeyPress(VirtualKeyCode.RETURN);
+                        EnableTimer();
+                    }
                 }
                 else
                 {
-                    //Reroll if a desired skill is not present
                     sim.Keyboard.KeyPress(VirtualKeyCode.RETURN);
                     EnableTimer();
                 }
@@ -123,9 +149,17 @@ namespace SoD2_Reroll
             img.Dispose();
         }
 
+        private Bitmap Screenshot(int left, int top, int height)
+        {
+            Bitmap img = new Bitmap(375, height);
+            Graphics g = Graphics.FromImage(img);
+            g.CopyFromScreen(left, top, 0, 0, new Size(375, height), CopyPixelOperation.SourceCopy);
+            return img;
+        }
+
         private void EnableTimer()
         {
-            //Program waits 50ms before iterating to prevent misreading by the OCR
+            ////Program waits 50ms before iterating to prevent misreading by the OCR
             System.Threading.Thread.Sleep(50);
 
             //Timer is enabled to continue iterating if needed, program stops when CONTROL is pressed
@@ -188,27 +222,88 @@ namespace SoD2_Reroll
             btnStart.BeginInvoke((Action)delegate() { btnStart.Enabled = toggle; });
         }
 
-        private void cbSurvivor1_SelectedIndexChanged(object sender, EventArgs e) 
-        { 
-            active[0] = Regex.Replace(cbSurvivor1.GetItemText(cbSurvivor1.SelectedItem).ToUpper(), @"\s+", ""); 
+        private void SkillChanged(object sender, EventArgs e)
+        {
+            int index = 0;
+            ComboBox cb = (ComboBox)sender;
+
+            switch (cb.Name)
+            {
+                case "cbSurvivor1":
+                    index = 0;
+                    break;
+                case "cbSurvivor2":
+                    index = 1;
+                    break;
+                case "cbSurvivor3":
+                    index = 2;
+                    break;
+            }
+
+            activeSkills[index] = Regex.Replace(cb.GetItemText(cb.SelectedItem).ToUpper(), @"\s+", "");
         }
 
-        private void cbSurvivor2_SelectedIndexChanged(object sender, EventArgs e) 
-        { 
-            active[1] = Regex.Replace(cbSurvivor2.GetItemText(cbSurvivor2.SelectedItem).ToUpper(), @"\s+", ""); 
-        }
+        private void TraitChanged(object sender, EventArgs e)
+        {
+            int i = 0, j = 0;
+            ComboBox cb = (ComboBox)sender;
 
-        private void cbSurvivor3_SelectedIndexChanged(object sender, EventArgs e) 
-        { 
-            active[2] = Regex.Replace(cbSurvivor3.GetItemText(cbSurvivor3.SelectedItem).ToUpper(), @"\s+", ""); 
+            switch (cb.Name)
+            {
+                case "cbS1Trait1":
+                    i = 0;
+                    j = 0;
+                    break;
+                case "cbS1Trait2":
+                    i = 0;
+                    j = 1;
+                    break;
+                case "cbS1Trait3":
+                    i = 0;
+                    j = 2;
+                    break;
+                case "cbS2Trait1":
+                    i = 1;
+                    j = 0;
+                    break;
+                case "cbS2Trait2":
+                    i = 1;
+                    j = 1;
+                    break;
+                case "cbS2Trait3":
+                    i = 1;
+                    j = 2;
+                    break;
+                case "cbS3Trait1":
+                    i = 2;
+                    j = 0;
+                    break;
+                case "cbS3Trait2":
+                    i = 2;
+                    j = 1;
+                    break;
+                case "cbS3Trait3":
+                    i = 2;
+                    j = 2;
+                    break;
+            }
+
+            activeTraits[i, j] = Regex.Replace(cb.GetItemText(cb.SelectedItem).ToUpper(), @"\s+", "");
         }
 
         private void btnStart_Click(object sender, EventArgs e)
         {
+            cbResolution.Select(0, 0);
+            survivor = 1;
             ToggleButtons(false);
             firstIteration = true;
             reroll = true;
             rerollTimer.Enabled = true;
+        }
+
+        private void SoD2Reroll_KeyDown(object sender, KeyEventArgs e)
+        {
+            e.Handled = true;
         }
 
         private void btnStop_Click(object sender, EventArgs e)
