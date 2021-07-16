@@ -100,7 +100,7 @@ namespace SoD2_Reroll
             }
 
             Bitmap img = Screenshot(leftTrait, topTrait, heightTrait);
-            img.Save(Directory.GetCurrentDirectory() + "\\SoD2TraitScreenshot.jpg");
+            //img.Save(Directory.GetCurrentDirectory() + "\\SoD2TraitScreenshot.jpg");
 
             //Use the screenreader to determine what text is in the screenshot
             using (var objOcr = OcrApi.Create())
@@ -117,7 +117,7 @@ namespace SoD2_Reroll
                     ComputeStringDistance(activeTraits[survivor - 1, 2], formattedText) <= (formattedText.Length - activeTraits[survivor - 1, 2].Length) + 1)
                 {
                     img = Screenshot(leftSkill, topSkill, heightSkill);
-                    img.Save(Directory.GetCurrentDirectory() + "\\SoD2SkillScreenshot.jpg");
+                    //img.Save(Directory.GetCurrentDirectory() + "\\SoD2SkillScreenshot.jpg");
                     plainText = objOcr.GetTextFromImage(img);
                     formattedText = Regex.Replace(plainText, @"\s+", "").ToUpper();
                     if (ComputeStringDistance(activeSkills[survivor - 1], formattedText) <= (formattedText.Length - activeSkills[survivor - 1].Length) + 1)

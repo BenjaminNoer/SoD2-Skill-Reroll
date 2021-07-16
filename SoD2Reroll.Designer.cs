@@ -61,6 +61,7 @@ namespace SoD2_Reroll
             this.label4 = new System.Windows.Forms.Label();
             this.cbS3Trait1 = new System.Windows.Forms.ComboBox();
             this.panel5 = new System.Windows.Forms.Panel();
+            this.lblWarning = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.nudWait)).BeginInit();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -463,6 +464,7 @@ namespace SoD2_Reroll
             // 
             // panel5
             // 
+            this.panel5.Controls.Add(this.lblWarning);
             this.panel5.Controls.Add(this.lblWait);
             this.panel5.Controls.Add(this.nudWait);
             this.panel5.Controls.Add(this.lblResolution);
@@ -472,14 +474,26 @@ namespace SoD2_Reroll
             this.panel5.Controls.Add(this.btnStart);
             this.panel5.Location = new System.Drawing.Point(12, 395);
             this.panel5.Name = "panel5";
-            this.panel5.Size = new System.Drawing.Size(1242, 223);
+            this.panel5.Size = new System.Drawing.Size(1242, 255);
             this.panel5.TabIndex = 4;
+            // 
+            // lblWarning
+            // 
+            this.lblWarning.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblWarning.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.lblWarning.Location = new System.Drawing.Point(3, 208);
+            this.lblWarning.Name = "lblWarning";
+            this.lblWarning.Size = new System.Drawing.Size(1236, 44);
+            this.lblWarning.TabIndex = 17;
+            this.lblWarning.Text = "WARNING: There are over 1000 traits in the game. Choosing multiple traits for a s" +
+    "ingle suvivor will take a long time, though technically possible.";
+            this.lblWarning.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // SoD2Reroll
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1268, 622);
+            this.ClientSize = new System.Drawing.Size(1268, 660);
             this.Controls.Add(this.panel5);
             this.Controls.Add(this.panel3);
             this.Controls.Add(this.panel2);
@@ -536,6 +550,7 @@ namespace SoD2_Reroll
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.ComboBox cbS3Trait1;
         private System.Windows.Forms.Panel panel5;
+        private System.Windows.Forms.Label lblWarning;
     }
 }
 
