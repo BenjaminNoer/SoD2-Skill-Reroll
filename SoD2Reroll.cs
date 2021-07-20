@@ -1,5 +1,4 @@
 ﻿using System;
-using System.IO;
 using WindowsInput;
 using Patagames.Ocr;
 using System.Timers;
@@ -7,6 +6,9 @@ using System.Drawing;
 using WindowsInput.Native;
 using System.Windows.Forms;
 using System.Text.RegularExpressions;
+
+//For output.txt
+//using System.IO;
 
 namespace SoD2_Reroll
 {
@@ -19,7 +21,7 @@ namespace SoD2_Reroll
         private readonly short interval = 50;
         private Size resolution = new Size(1920, 1080);
         private static readonly int heightTrait = 125, heightSkill = 35;
-        StreamWriter sw;
+        //StreamWriter sw;
 
         //Array that holds the currently selected skills and traits in combo boxes
         private string[] activeSkills = { "", "", "" };
@@ -34,8 +36,8 @@ namespace SoD2_Reroll
             string[] traits = Properties.Resources.traits.Split(new[] { Environment.NewLine }, StringSplitOptions.None);
 
             //Create output text file or delete contents if it already exists
-            File.WriteAllText(Directory.GetCurrentDirectory() + "\\output.txt", String.Empty);
-            sw = new StreamWriter(Directory.GetCurrentDirectory() + "\\output.txt");
+            //File.WriteAllText(Directory.GetCurrentDirectory() + "\\output.txt", String.Empty);
+            //sw = new StreamWriter(Directory.GetCurrentDirectory() + "\\output.txt");
 
             cbSurvivor1.Items.AddRange(skills);
             cbSurvivor2.Items.AddRange(skills);
@@ -109,7 +111,8 @@ namespace SoD2_Reroll
                 string plainText = objOcr.GetTextFromImage(img);
                 string formattedText = Regex.Replace(plainText, @"\s+", "").ToUpper();
 
-                sw.WriteLine(formattedText);
+                //Write results to output.txt
+                //sw.WriteLine(formattedText);
 
                 //reliability issues with 2 or more traits selected
                 if (ComputeStringDistance(activeTraits[survivor - 1, 0], formattedText) <= (formattedText.Length - activeTraits[survivor - 1, 0].Length) + 1 &&
