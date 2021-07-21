@@ -27,7 +27,13 @@ namespace SoD2_Reroll
         private string[] activeSkills = { "", "", "" };
         private string[,] activeTraits = { { "", "", "" }, { "", "", "" }, { "", "", "" } };
 
-        public SoD2Reroll() { InitializeComponent(); }
+        //Array that shows which set of skills and traits still need to be found
+        private int[] activeSurvivors = { 1, 2, 3};
+
+        public SoD2Reroll() 
+        { 
+            InitializeComponent(); 
+        }
 
         private void SoD2Reroll_Load(object sender, EventArgs e)
         {
@@ -68,6 +74,12 @@ namespace SoD2_Reroll
             rerollTimer.Enabled = false;
             rerollTimer.Interval = interval;
 
+            //Disable reroll if control is held
+            if (ModifierKeys.HasFlag(Keys.Control))
+            {
+                Stop();
+            }
+
             if (firstIteration)
             {
                 //Move cursor to the first button
@@ -80,13 +92,11 @@ namespace SoD2_Reroll
 
             //define variables for screenshot position
             int leftTrait = 0, leftSkill = 0;
-            //int top = (int)Math.Round(resolution.Height / 1.55);
             int topTrait = (int)Math.Round(resolution.Height / 3.65), topSkill = (int)Math.Round(resolution.Height / 1.55);
 
             //Sets left and top vaiables for each survivor based on resoltuion
             switch (survivor)
             {
-                //screenshot locations for different suvivors
                 case 1:
                     leftTrait = (int)Math.Round(resolution.Width / 5.47);
                     leftSkill = resolution.Width / 5;
@@ -101,55 +111,48 @@ namespace SoD2_Reroll
                     break;
             }
 
-            Bitmap img = Screenshot(leftTrait, topTrait, heightTrait);
-            //img.Save(Directory.GetCurrentDirectory() + "\\SoD2TraitScreenshot.jpg");
+            //Take screenshots for OCR to read
+            Bitmap traitsImg = Screenshot(leftTrait, topTrait, heightTrait);
+            Bitmap skillsImg = Screenshot(leftSkill, topSkill, heightSkill);
 
-            //Use the screenreader to determine what text is in the screenshot
-            using (var objOcr = OcrApi.Create())
+            //If a set of triats / skills have not been found already check if they are in the current screenshot
+            if (activeSurvivors[0] == 1 && TextMatch(leftTrait, topTrait, leftSkill, topSkill, traitsImg, skillsImg, 1))
             {
-                objOcr.Init(Patagames.Ocr.Enums.Languages.English);
-                string plainText = objOcr.GetTextFromImage(img);
-                string formattedText = Regex.Replace(plainText, @"\s+", "").ToUpper();
-
-                //Write results to output.txt
-                //sw.WriteLine(formattedText);
-
-                //reliability issues with 2 or more traits selected
-                if (ComputeStringDistance(activeTraits[survivor - 1, 0], formattedText) <= (formattedText.Length - activeTraits[survivor - 1, 0].Length) + 1 &&
-                    ComputeStringDistance(activeTraits[survivor - 1, 1], formattedText) <= (formattedText.Length - activeTraits[survivor - 1, 1].Length) + 1 &&
-                    ComputeStringDistance(activeTraits[survivor - 1, 2], formattedText) <= (formattedText.Length - activeTraits[survivor - 1, 2].Length) + 1)
-                {
-                    img = Screenshot(leftSkill, topSkill, heightSkill);
-                    //img.Save(Directory.GetCurrentDirectory() + "\\SoD2SkillScreenshot.jpg");
-                    plainText = objOcr.GetTextFromImage(img);
-                    formattedText = Regex.Replace(plainText, @"\s+", "").ToUpper();
-                    if (ComputeStringDistance(activeSkills[survivor - 1], formattedText) <= (formattedText.Length - activeSkills[survivor - 1].Length) + 1)
-                    {
-                        if (survivor == 3)
-                        {
-                            Stop();
-                        }
-                        else
-                        {
-                            survivor++;
-                            sim.Keyboard.KeyPress(VirtualKeyCode.RIGHT);
-                            EnableTimer();
-                        }
-                    }
-                    else
-                    {
-                        sim.Keyboard.KeyPress(VirtualKeyCode.RETURN);
-                        EnableTimer();
-                    }
-                }
-                else
-                {
-                    sim.Keyboard.KeyPress(VirtualKeyCode.RETURN);
-                    EnableTimer();
-                }
+                activeSurvivors[0] = 0;
+                survivor++;
+                sim.Keyboard.KeyPress(VirtualKeyCode.RIGHT);
+                EnableTimer();
+            }
+            else if (activeSurvivors[1] == 2 && TextMatch(leftTrait, topTrait, leftSkill, topSkill, traitsImg, skillsImg, 2))
+            {
+                activeSurvivors[1] = 0;
+                survivor++;
+                sim.Keyboard.KeyPress(VirtualKeyCode.RIGHT);
+                EnableTimer();
+            }
+            else if (activeSurvivors[2] == 3 && TextMatch(leftTrait, topTrait, leftSkill, topSkill, traitsImg, skillsImg, 3))
+            {
+                activeSurvivors[2] = 0;
+                survivor++;
+                sim.Keyboard.KeyPress(VirtualKeyCode.RIGHT);
+                EnableTimer();
+            }
+            else
+            {
+                sim.Keyboard.KeyPress(VirtualKeyCode.RETURN);
+                EnableTimer();
             }
 
-            img.Dispose();
+            //traitsImg.Save(Directory.GetCurrentDirectory() + "\\SoD2TraitScreenshot.jpg");
+            //skillsImg.Save(Directory.GetCurrentDirectory() + "\\SoD2SkillScreenshot.jpg");
+
+            traitsImg.Dispose();
+            skillsImg.Dispose();
+
+            if (survivor > 3)
+            {
+                Stop();
+            }
         }
 
         private Bitmap Screenshot(int left, int top, int height)
@@ -160,12 +163,43 @@ namespace SoD2_Reroll
             return img;
         }
 
+        private bool TextMatch(int leftTrait, int topTrait, int leftSkill, int topSkill, Bitmap traits, Bitmap skills, int survivorNumber)
+        {
+            bool match;
+
+            using (var objOcr = OcrApi.Create())
+            {
+                objOcr.Init(Patagames.Ocr.Enums.Languages.English);
+                string plainTextTraits = objOcr.GetTextFromImage(traits);
+                string plainTextSkills = objOcr.GetTextFromImage(skills);
+                string formattedTextTraits = Regex.Replace(plainTextTraits, @"\s+", "").ToUpper();
+                string formattedTextSkills = Regex.Replace(plainTextSkills, @"\s+", "").ToUpper();
+
+                if (ComputeStringDistance(activeTraits[survivorNumber - 1, 0], formattedTextTraits) <= (formattedTextTraits.Length - activeTraits[survivorNumber - 1, 0].Length) + 1 &&
+                    ComputeStringDistance(activeTraits[survivorNumber - 1, 1], formattedTextTraits) <= (formattedTextTraits.Length - activeTraits[survivorNumber - 1, 1].Length) + 1 &&
+                    ComputeStringDistance(activeTraits[survivorNumber - 1, 2], formattedTextTraits) <= (formattedTextTraits.Length - activeTraits[survivorNumber - 1, 2].Length) + 1 &&
+                    ComputeStringDistance(activeSkills[survivorNumber - 1], formattedTextSkills) <= (formattedTextSkills.Length - activeSkills[survivorNumber - 1].Length) + 1)
+                {
+                    match = true;
+                }
+                else
+                {
+                    match = false;
+                }
+
+                //sw.WriteLine(formattedTextTraits);
+                //sw.WriteLine(formattedTextSkills);
+            }
+
+            return match;
+        }
+        
         private void EnableTimer()
         {
             ////Program waits 50ms before iterating to prevent misreading by the OCR
             System.Threading.Thread.Sleep(50);
 
-            //Timer is enabled to continue iterating if needed, program stops when CONTROL is pressed
+            //Disable reroll if control is held
             if (ModifierKeys.HasFlag(Keys.Control))
             {
                 Stop();
@@ -297,6 +331,7 @@ namespace SoD2_Reroll
         private void btnStart_Click(object sender, EventArgs e)
         {
             cbResolution.Select(0, 0);
+            activeSurvivors = new int[] { 1, 2, 3 };
             survivor = 1;
             ToggleButtons(false);
             firstIteration = true;

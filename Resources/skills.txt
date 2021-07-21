@@ -3,12 +3,17 @@ Acting
 Animal Facts
 Bartending
 Business
+Chemistry
 Comedy
+Cooking
+Computers
+Craftsmanship
 Design
 Driving
 Excuses
 Farting Around
 Fishing
+Gardening
 Geek Trivia
 Hairdressing
 Hygiene
@@ -17,6 +22,8 @@ Law
 Lichenology
 Literature
 Making Coffee
+Mechanics
+Medicine
 Movie Trivia
 Music
 Painting
@@ -35,11 +42,4 @@ Sports Trivia
 Soundproofing
 Tattoos
 TV Trivia
-Chemistry
-Computers
-Cooking
-Craftsmanship
-Gardening
-Mechanics
-Medicine
 Utilities
