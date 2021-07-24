@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using WindowsInput;
 using Patagames.Ocr;
 using System.Timers;
@@ -6,9 +7,6 @@ using System.Drawing;
 using WindowsInput.Native;
 using System.Windows.Forms;
 using System.Text.RegularExpressions;
-
-//For output.txt
-//using System.IO;
 
 namespace SoD2_Reroll
 {
@@ -143,8 +141,8 @@ namespace SoD2_Reroll
                 EnableTimer();
             }
 
-            //traitsImg.Save(Directory.GetCurrentDirectory() + "\\SoD2TraitScreenshot.jpg");
-            //skillsImg.Save(Directory.GetCurrentDirectory() + "\\SoD2SkillScreenshot.jpg");
+            //traitsImg.Save(Directory.GetCurrentDirectory() + "\\TestImages\\SoD2TraitScreenshot.jpg");
+            //skillsImg.Save(Directory.GetCurrentDirectory() + "\\TestImages\\SoD2SkillScreenshot.jpg");
 
             traitsImg.Dispose();
             skillsImg.Dispose();
@@ -330,7 +328,6 @@ namespace SoD2_Reroll
 
         private void btnStart_Click(object sender, EventArgs e)
         {
-            cbResolution.Select(0, 0);
             activeSurvivors = new int[] { 1, 2, 3 };
             survivor = 1;
             ToggleButtons(false);
@@ -342,6 +339,31 @@ namespace SoD2_Reroll
         private void SoD2Reroll_KeyDown(object sender, KeyEventArgs e)
         {
             e.Handled = true;
+        }
+
+        private void btnTest_Click(object sender, EventArgs e)
+        {
+            //Wait
+            System.Threading.Thread.Sleep(wait);
+
+            //Take test images
+            Bitmap traitsImg1 = Screenshot((int)Math.Round(resolution.Width / 5.47), (int)Math.Round(resolution.Height / 3.65), heightTrait);
+            Bitmap traitsImg2 = Screenshot((int)Math.Round(resolution.Width / 1.995), (int)Math.Round(resolution.Height / 3.65), heightTrait);
+            Bitmap traitsImg3 = Screenshot((int)Math.Round(4.1 * resolution.Width / 5), (int)Math.Round(resolution.Height / 3.65), heightTrait);
+            Bitmap skillsImg1 = Screenshot(resolution.Width / 5, (int)Math.Round(resolution.Height / 1.55), heightSkill);
+            Bitmap skillsImg2 = Screenshot((int)Math.Round(resolution.Width / 1.925), (int)Math.Round(resolution.Height / 1.55), heightSkill);
+            Bitmap skillsImg3 = Screenshot((int)Math.Round(4.2 * resolution.Width / 5), (int)Math.Round(resolution.Height / 1.55), heightSkill);
+
+            //Save test images
+            traitsImg1.Save(Directory.GetCurrentDirectory() + "\\TestImages\\Survivor1Traits.jpg");
+            traitsImg2.Save(Directory.GetCurrentDirectory() + "\\TestImages\\Survivor2Traits.jpg");
+            traitsImg3.Save(Directory.GetCurrentDirectory() + "\\TestImages\\Survivor3Traits.jpg");
+            skillsImg1.Save(Directory.GetCurrentDirectory() + "\\TestImages\\Survivor1Skills.jpg");
+            skillsImg2.Save(Directory.GetCurrentDirectory() + "\\TestImages\\Survivor2Skills.jpg");
+            skillsImg3.Save(Directory.GetCurrentDirectory() + "\\TestImages\\Survivor3Skills.jpg");
+
+            //Display finish notification
+            MessageBox.Show("Test complete." + Environment.NewLine + "Images saved in " + Directory.GetCurrentDirectory() + "\\TestImages");
         }
 
         private void btnStop_Click(object sender, EventArgs e)

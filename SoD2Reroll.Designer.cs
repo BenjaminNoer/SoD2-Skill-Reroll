@@ -62,6 +62,7 @@ namespace SoD2_Reroll
             this.cbS3Trait1 = new System.Windows.Forms.ComboBox();
             this.panel5 = new System.Windows.Forms.Panel();
             this.lblWarning = new System.Windows.Forms.Label();
+            this.btnTest = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.nudWait)).BeginInit();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -203,9 +204,9 @@ namespace SoD2_Reroll
             // btnStart
             // 
             this.btnStart.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnStart.Location = new System.Drawing.Point(624, 102);
+            this.btnStart.Location = new System.Drawing.Point(693, 102);
             this.btnStart.Name = "btnStart";
-            this.btnStart.Size = new System.Drawing.Size(199, 65);
+            this.btnStart.Size = new System.Drawing.Size(133, 65);
             this.btnStart.TabIndex = 16;
             this.btnStart.TabStop = false;
             this.btnStart.Text = "Start";
@@ -215,9 +216,9 @@ namespace SoD2_Reroll
             // btnStop
             // 
             this.btnStop.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnStop.Location = new System.Drawing.Point(419, 102);
+            this.btnStop.Location = new System.Drawing.Point(554, 102);
             this.btnStop.Name = "btnStop";
-            this.btnStop.Size = new System.Drawing.Size(199, 65);
+            this.btnStop.Size = new System.Drawing.Size(133, 65);
             this.btnStop.TabIndex = 15;
             this.btnStop.TabStop = false;
             this.btnStop.Text = "Stop";
@@ -464,6 +465,7 @@ namespace SoD2_Reroll
             // 
             // panel5
             // 
+            this.panel5.Controls.Add(this.btnTest);
             this.panel5.Controls.Add(this.lblWarning);
             this.panel5.Controls.Add(this.lblWait);
             this.panel5.Controls.Add(this.nudWait);
@@ -488,6 +490,18 @@ namespace SoD2_Reroll
             this.lblWarning.Text = "WARNING: There are over 1000 traits in the game. Choosing multiple traits for a s" +
     "ingle suvivor will take a long time, though technically possible.";
             this.lblWarning.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // btnTest
+            // 
+            this.btnTest.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnTest.Location = new System.Drawing.Point(416, 102);
+            this.btnTest.Name = "btnTest";
+            this.btnTest.Size = new System.Drawing.Size(133, 65);
+            this.btnTest.TabIndex = 18;
+            this.btnTest.TabStop = false;
+            this.btnTest.Text = "Test";
+            this.btnTest.UseVisualStyleBackColor = true;
+            this.btnTest.Click += new System.EventHandler(this.btnTest_Click);
             // 
             // SoD2Reroll
             // 
@@ -551,6 +565,7 @@ namespace SoD2_Reroll
         private System.Windows.Forms.ComboBox cbS3Trait1;
         private System.Windows.Forms.Panel panel5;
         private System.Windows.Forms.Label lblWarning;
+        private System.Windows.Forms.Button btnTest;
     }
 }
 
