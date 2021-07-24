@@ -40,8 +40,8 @@ namespace SoD2_Reroll
             string[] traits = Properties.Resources.traits.Split(new[] { Environment.NewLine }, StringSplitOptions.None);
 
             //Create output text file or delete contents if it already exists
-            //File.WriteAllText(Directory.GetCurrentDirectory() + "\\output.txt", String.Empty);
-            //sw = new StreamWriter(Directory.GetCurrentDirectory() + "\\output.txt");
+            //File.WriteAllText(Directory.GetCurrentDirectory() + "\\output\\output.txt", String.Empty);
+            //sw = new StreamWriter(Directory.GetCurrentDirectory() + "\\output\\output.txt");
 
             cbSurvivor1.Items.AddRange(skills);
             cbSurvivor2.Items.AddRange(skills);
@@ -141,8 +141,8 @@ namespace SoD2_Reroll
                 EnableTimer();
             }
 
-            //traitsImg.Save(Directory.GetCurrentDirectory() + "\\TestImages\\SoD2TraitScreenshot.jpg");
-            //skillsImg.Save(Directory.GetCurrentDirectory() + "\\TestImages\\SoD2SkillScreenshot.jpg");
+            //traitsImg.Save(Directory.GetCurrentDirectory() + "\\output\\SoD2TraitScreenshot.jpg");
+            //skillsImg.Save(Directory.GetCurrentDirectory() + "\\output\\SoD2SkillScreenshot.jpg");
 
             traitsImg.Dispose();
             skillsImg.Dispose();
@@ -355,15 +355,16 @@ namespace SoD2_Reroll
             Bitmap skillsImg3 = Screenshot((int)Math.Round(4.2 * resolution.Width / 5), (int)Math.Round(resolution.Height / 1.55), heightSkill);
 
             //Save test images
-            traitsImg1.Save(Directory.GetCurrentDirectory() + "\\TestImages\\Survivor1Traits.jpg");
-            traitsImg2.Save(Directory.GetCurrentDirectory() + "\\TestImages\\Survivor2Traits.jpg");
-            traitsImg3.Save(Directory.GetCurrentDirectory() + "\\TestImages\\Survivor3Traits.jpg");
-            skillsImg1.Save(Directory.GetCurrentDirectory() + "\\TestImages\\Survivor1Skills.jpg");
-            skillsImg2.Save(Directory.GetCurrentDirectory() + "\\TestImages\\Survivor2Skills.jpg");
-            skillsImg3.Save(Directory.GetCurrentDirectory() + "\\TestImages\\Survivor3Skills.jpg");
+            string imgPath = Directory.GetCurrentDirectory() + "\\output";
+            traitsImg1.Save(imgPath + "\\survivor_1_traits.jpg");
+            traitsImg2.Save(imgPath + "\\survivor_2_traits.jpg");
+            traitsImg3.Save(imgPath + "\\survivor_3_traits.jpg");
+            skillsImg1.Save(imgPath + "\\survivor_1_skills.jpg");
+            skillsImg2.Save(imgPath + "\\survivor_2_skills.jpg");
+            skillsImg3.Save(imgPath + "\\survivor_3_skills.jpg");
 
             //Display finish notification
-            MessageBox.Show("Test complete." + Environment.NewLine + "Images saved in " + Directory.GetCurrentDirectory() + "\\TestImages");
+            MessageBox.Show("Test complete." + Environment.NewLine + "Images saved in " + Directory.GetCurrentDirectory() + "\\output");
         }
 
         private void btnStop_Click(object sender, EventArgs e)
